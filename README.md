@@ -123,3 +123,32 @@ in the online documentation for an overview on how to configure Spark.
 
 Please review the [Contribution to Spark guide](https://spark.apache.org/contributing.html)
 for information on how to get started contributing to the project.
+
+
+/opt/streaming/spark-3.4.3-bin-hadoop3/bin/spark-sql --jars /opt/lib/paimon-spark-3.4-0.9.0.jar --conf 'spark.sql.catalog.paimon.metastore=filesystem' --conf 'spark.sql.catalog.paimon.warehouse=s3a://paimon/warehouse' --conf 'spark.sql.catalog.paimon.s3.endpoint=http://ip:31212' --conf 'spark.sql.catalog.paimon.s3.access-key=uotAvnxXwcz90yNxWhq2' --conf 'spark.sql.catalog.paimon.s3.secret-key=MlDBAOfRDG9lwFTUo9Qic9dLbuFfHsxJfwkjFD4v' --conf 'spark.serializer=org.apache.spark.serializer.KryoSerializer' --conf 'spark.sql.catalog.paimon=org.apache.paimon.spark.SparkCatalog' --conf 'spark.sql.extensions=org.apache.paimon.spark.extensions.PaimonSparkSessionExtensions' --conf 'spark.sql.catalog.paimon.s3.path-style.access=true' --conf 'spark.delta.logStore.class=org.apache.spark.sql.delta.storage.S3SingleDriverLogStore' --conf 'spark.hadoop.fs.s3a.multipart.size=104857600' --conf 'spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem' --conf 'spark.hadoop.fs.s3a.access.key=uotAvnxXwcz90yNxWhq2' --conf 'spark.hadoop.fs.s3a.secret.key=MlDBAOfRDG9lwFTUo9Qic9dLbuFfHsxJfwkjFD4v' --conf 'spark.hadoop.fs.s3a.endpoint=http://ip:31212' --conf 'spark.hadoop.fs.s3a.connection.timeout=200000'
+
+
+
+use command spark.sql.catalog.paimon=org.apache.paimon.spark.SparkCatalog  default catalog is paimon 
+
+
+USE paimon;
+
+create database m31094;
+
+use m31094;
+
+create table m31094.paimon_table (
+    id int,
+    name string
+) tblproperties (
+    'primary-key' = 'id'
+);
+
+INSERT INTO m31094.paimon_table VALUES (1, 'M*****'), (2, 'JY*****');
+
+
+SELECT * FROM m31094.paimon_table;
+
+
+jars/aws-java-sdk-bundle-1.12.772.jar big more not upload
